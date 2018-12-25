@@ -43,4 +43,4 @@
             strokeWidthChild: 5,
             progressColor: '#00AAFF',
             progressParentCircleColor: '#E0E0E0',
-        }
+	}
