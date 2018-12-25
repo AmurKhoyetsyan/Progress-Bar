@@ -29,3 +29,18 @@
 	new Progress(Circle1, options).inPercent();
 	new Progress(Circle2, options).inCount(5);
 	new Progress(Circle3, options).inCounter();
+	
+### JavaScript default options
+	{
+            fontColor: '#000000',
+            fontSize: 16,
+            fontWeight: 400,
+            fillParent: 'none',
+            fillChild: 'none',
+            interval: 1000,
+            animated: false,
+            strokeWidthParent: 3,
+            strokeWidthChild: 5,
+            progressColor: '#00AAFF',
+            progressParentCircleColor: '#E0E0E0',
+        }
