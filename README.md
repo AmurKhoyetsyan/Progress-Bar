@@ -6,9 +6,9 @@
 ## Get started
 
 ### html
-	<div class="circle-1" data-count="85"></div>
-	<div class="circle-2" data-count="4,55"></div>
-	<div class="circle-3" data-count="70000"></div>
+	<div class="circle-1" data-count="85" style="width: 200px;"></div>
+	<div class="circle-2" data-count="4,55" style="width: 200px;"></div>
+	<div class="circle-3" data-count="70000" style="width: 200px;"></div>
 
 ### JavaScript
 	let Circle1 = document.getElementsByClassName('circle-1');
