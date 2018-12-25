@@ -4,9 +4,13 @@
 
 ### html
 	<div class="circle-1" data-count="85" style="width: 200px;"></div>
+	<div class="circle-2" data-count="4,55" style="width: 200px;"></div>
+	<div class="circle-3" data-count="70000" style="width: 200px;"></div>
 
 ### JavaScript
 	let Circle1 = document.getElementsByClassName('circle-1');
+	let Circle2 = document.getElementsByClassName('circle-2');
+	let Circle3 = document.getElementsByClassName('circle-3');
 
 	let options = {
 	    fontColor: '#FFFFFF',
@@ -23,5 +27,5 @@
 	};
 
 	new Progress(Circle1, options).inPercent();
-	new Progress(Circle1, options).inCount(5);
-	new Progress(Circle1, options).inCounter();
+	new Progress(Circle2, options).inCount(5);
+	new Progress(Circle3, options).inCounter();
