@@ -1,0 +1,24 @@
+.container{
+    width: 1200px;
+    position: relative;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.row{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.progress-prent{
+    width: 200px;
+    margin: 5px;
+}
