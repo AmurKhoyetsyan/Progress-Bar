@@ -6,25 +6,7 @@
 
 'use strict';
 
-class Progress{
-    constructor(elem, options = null){
-        this.elem = elem;
-        this.options = options;
-        this.defaultOptions = {
-            fontColor: '#000000',
-            fontSize: 16,
-            fontWeight: 400,
-            fillParent: 'none',
-            fillChild: 'none',
-            interval: 1000,
-            animated: false,
-            strokeWidthParent: 3,
-            strokeWidthChild: 5,
-            progressColor: '#00AAFF',
-            progressParentCircleColor: '#E0E0E0',
-        }
-    }
-
+class GeterSeterParameters {
     _getHeight(elem){
         return parseFloat(elem.clientHeight);
     }
@@ -70,6 +52,27 @@ class Progress{
             }
         }
         return percent;
+    }
+}
+
+class Progress extends GeterSeterParameters {
+    constructor(elem, options = null){
+        super();
+        this.elem = elem;
+        this.options = options;
+        this.defaultOptions = {
+            fontColor: '#000000',
+            fontSize: 16,
+            fontWeight: 400,
+            fillParent: 'none',
+            fillChild: 'none',
+            interval: 1000,
+            animated: false,
+            strokeWidthParent: 3,
+            strokeWidthChild: 5,
+            progressColor: '#00AAFF',
+            progressParentCircleColor: '#E0E0E0',
+        }
     }
 
     _animatedText(count, duration, textTag, symbolPercent){
