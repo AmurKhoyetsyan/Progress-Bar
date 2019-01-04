@@ -55,26 +55,7 @@ class GeterSeterParameters {
     }
 }
 
-class Progress extends GeterSeterParameters {
-    constructor(elem, options = null){
-        super();
-        this.elem = elem;
-        this.options = options;
-        this.defaultOptions = {
-            fontColor: '#000000',
-            fontSize: 16,
-            fontWeight: 400,
-            fillParent: 'none',
-            fillChild: 'none',
-            interval: 1000,
-            animated: false,
-            strokeWidthParent: 3,
-            strokeWidthChild: 5,
-            progressColor: '#00AAFF',
-            progressParentCircleColor: '#E0E0E0',
-        }
-    }
-
+class Animation extends GeterSeterParameters{
     _animatedText(count, duration, textTag, symbolPercent){
         let start = 0;
         let step = (count / duration) * 20;
@@ -100,6 +81,25 @@ class Progress extends GeterSeterParameters {
         animated();
     }
 
+    _animatedCircle(start, count, duration, circle){
+        let counter = start;
+        let interval = Math.abs(count - start);
+        let step = (interval / duration) * 20;
+        circle.setAttribute('stroke-dashoffset', counter);
+        function animated(){
+            counter -= step;
+            if(counter <= count){
+                circle.setAttribute('stroke-dashoffset', count);
+            }else{
+                circle.setAttribute('stroke-dashoffset', counter);
+                setTimeout(animated, 20);
+            }
+        }
+        animated();
+    }
+}
+
+class CreateSvg extends Animation {
     _setText(count, option, symbolPercent, position){
         let countInterval;
         let progressCount = this._replaceAll(option.progressCount, ',', '.');
@@ -142,23 +142,6 @@ class Progress extends GeterSeterParameters {
         return circle;
     }
 
-    _animatedCircle(start, count, duration, circle){
-        let counter = start;
-        let interval = Math.abs(count - start);
-        let step = (interval / duration) * 20;
-        circle.setAttribute('stroke-dashoffset', counter);
-        function animated(){
-            counter -= step;
-            if(counter <= count){
-                circle.setAttribute('stroke-dashoffset', count);
-            }else{
-                circle.setAttribute('stroke-dashoffset', counter);
-                setTimeout(animated, 20);
-            }
-        }
-        animated();
-    }
-
     _setSvg(elem, option, count, prTrue ){
         let percent = this._setPercent(count, option);
 
@@ -190,6 +173,27 @@ class Progress extends GeterSeterParameters {
         svg.appendChild(text);
 
         return svg;
+    }
+}
+
+class Progress extends CreateSvg {
+    constructor(elem, options = null){
+        super();
+        this.elem = elem;
+        this.options = options;
+        this.defaultOptions = {
+            fontColor: '#000000',
+            fontSize: 16,
+            fontWeight: 400,
+            fillParent: 'none',
+            fillChild: 'none',
+            interval: 1000,
+            animated: false,
+            strokeWidthParent: 3,
+            strokeWidthChild: 5,
+            progressColor: '#00AAFF',
+            progressParentCircleColor: '#E0E0E0',
+        }
     }
 
     inPercent(){
