@@ -1,9 +1,13 @@
 # Progress Bar And Widt / Height In JavaScript By Amur
+
 ## Example
+
 <img src="img/progress.gif" style="width: 100%; max-width: 600px;" />
+
 ## Get started
 
 ### html
+
 	<div class="circle-1" data-count="85" style="width: 200px;"></div>
 	<div class="circle-2" data-count="4,55" style="width: 200px;"></div>
 	<div class="circle-3" data-count="70000" style="width: 200px;"></div>
@@ -13,6 +17,7 @@
 	<script type="text/javascript" src="progress.min.js"></script>
 
 ### JavaScript
+
 	let Circle1 = document.getElementsByClassName('circle-1');
 	let Circle2 = document.getElementsByClassName('circle-2');
 	let Circle3 = document.getElementsByClassName('circle-3');
@@ -36,6 +41,7 @@
 	new Progress(Circle3, options).inCounter();
 	
 ### JavaScript default options
+
 	{
         fontColor: '#000000',
         fontSize: 16,
@@ -53,10 +59,14 @@
 ## Other Opportunities:
 
 ## Example
+
 <img src="img/other.gif" style="width: 100%; max-width: 256px;" />
+
 ### html
+
 	<div class="other" style="width: 200px;"></div>
 ### css
+
 	.other{
 	    width: 50px;
 	    height: 25px;
@@ -67,7 +77,9 @@
 	    -o-transition: all 300ms linear;
 	    transition: all 300ms linear;
 	}
+
 ### javascript
+
 	let elem = document.getElementsByClassName('other')[0];
 	let parameters = new GeterSeterParameters(elem);
 	parameters.Width; // return width
