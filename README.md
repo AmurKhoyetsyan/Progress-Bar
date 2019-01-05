@@ -11,6 +11,8 @@
 	<div class="circle-3" data-count="70000" style="width: 200px;"></div>
 	
 	<script type="text/javascript" src="progress.js"></script>
+## Or
+	<script type="text/javascript" src="progress.min.js"></script>
 
 ### JavaScript
 	let Circle1 = document.getElementsByClassName('circle-1');
