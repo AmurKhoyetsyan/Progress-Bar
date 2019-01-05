@@ -83,10 +83,10 @@
 	let elem = document.getElementsByClassName('other')[0];
 	let parameters = new GeterSeterParameters(elem);
 	parameters.Width; // return width
-	parameters.Width = 300;
+	parameters.Width = 100;
 	// or
-	parameters.Width = "300px";
+	parameters.Width = "100px";
 	parameters.Height; // return height
-	parameters.Height = 200;
+	parameters.Height = 75;
 	// or
-	parameters.Height = "200px";
+	parameters.Height = "75px";
