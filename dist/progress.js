@@ -150,9 +150,9 @@ class CreateSvg extends Animation {
 
     _setSvg(elem, option, count, prTrue ){
         let setGet = new GeterSeterParameters(elem);
-        
-        let percent = this._setPercent(count, option);
 
+        let percent = this._setPercent(count, option);
+        
         let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         let width = setGet.Width / 2;
         let radius = width - (option.strokeWidthChild / 2);
