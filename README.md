@@ -1,4 +1,4 @@
-# Progress Bar And Widt / Height In JavaScript By Amur
+# "Progress Bar" And "Width / Height" In JavaScript By Amur
 
 ## Example
 
