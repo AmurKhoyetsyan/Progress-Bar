@@ -2,6 +2,7 @@
 ## Example
 <img src="img/progress.gif" style="width: 100%; max-width: 600px;" />
 ## Get started
+
 ### html
 	<div class="circle-1" data-count="85" style="width: 200px;"></div>
 	<div class="circle-2" data-count="4,55" style="width: 200px;"></div>
