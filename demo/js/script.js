@@ -25,7 +25,7 @@ new Progress(Circle3, options).inCounter();
 
 // Other Opportunities
 
-let elem = document.getElementById('other')[0];
+let elem = document.getElementsByClassName('other')[0];
 
 let parameters = new GeterSeterParameters(elem);
 
