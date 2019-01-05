@@ -7,30 +7,36 @@
 'use strict';
 
 class GeterSeterParameters {
-    _getHeight(elem){
-        return parseFloat(elem.clientHeight);
+    constructor(elem){
+        this.elem = elem;
     }
 
-    _setHeight(elem, height){
+    get Height(){
+        return parseFloat(this.elem.clientHeight);
+    }
+
+    set Height(height){
         if((typeof height === 'number') && (!isNaN(height))){
-            elem.style.height = height + 'px';
+            this.elem.style.height = height + 'px';
         }else if(typeof height === 'string'){
-            elem.style.height = height;
+            this.elem.style.height = height;
         }
     }
 
-    _getWidth(elem){
-        return parseFloat(elem.clientWidth);
+    get Width(){
+        return parseFloat(this.elem.clientWidth);
     }
 
-    _setWidth(elem, width){
+    set Width(width){
         if((typeof width === 'number') && (!isNaN(width))){
-            elem.style.width = width + 'px';
+            this.elem.style.width = width + 'px';
         }else if(typeof width === 'string'){
-            elem.style.width = width;
+            this.elem.style.width = width;
         }
     }
+}
 
+class SetOptions {
     _getOptions(newOptions, options){
         if(newOptions){
             for(let key in newOptions){
@@ -55,7 +61,7 @@ class GeterSeterParameters {
     }
 }
 
-class Animation extends GeterSeterParameters{
+class Animation extends SetOptions {
     _animatedText(count, duration, textTag, symbolPercent){
         let start = 0;
         let step = (count / duration) * 20;
@@ -143,18 +149,20 @@ class CreateSvg extends Animation {
     }
 
     _setSvg(elem, option, count, prTrue ){
+        let setGet = new GeterSeterParameters(elem);
+        
         let percent = this._setPercent(count, option);
 
         let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        let width = this._getWidth(elem) / 2;
+        let width = setGet.Width / 2;
         let radius = width - (option.strokeWidthChild / 2);
         let circleWidth = 2 * Math.PI * radius;
         let circlePercent = (circleWidth * percent) / 100;
 
-        svg.setAttribute('height', this._getWidth(elem));
-        svg.setAttribute('width', this._getWidth(elem));
+        svg.setAttribute('height', setGet.Width);
+        svg.setAttribute('width', setGet.Width);
         svg.setAttribute('transform', 'rotate(270)');
-        svg.setAttribute('viewbox', '0 0 ' + this._getWidth(elem) + ' ' + this._getWidth(elem));
+        svg.setAttribute('viewbox', '0 0 ' + setGet.Width + ' ' + setGet.Width);
 
         let circleParent = this._setCircle(option.fillParent, option.progressParentCircleColor, option.strokeWidthParent, radius, width);
         let circleChild = this._setCircle(option.fillChild, option.progressColor, option.strokeWidthChild, radius, width);
