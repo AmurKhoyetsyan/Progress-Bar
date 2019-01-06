@@ -66,7 +66,7 @@ class Animation extends SetOptions {
         let start = 0;
         let step = (count / duration) * 20;
 
-        function setParseText(text, symbol){
+        const setParseText = (text, symbol)=>{
             let percent = (Math.ceil(text) > text)?(parseFloat(parseFloat(text).toFixed(2))):(parseInt(text));
             if(symbol){
                 return percent + '%';
@@ -75,7 +75,7 @@ class Animation extends SetOptions {
             }
         }
 
-        function animated(){
+        const animated = ()=>{
             start += step;
             if(start >= count){
                 textTag.innerHTML = setParseText(count, symbolPercent);
@@ -92,7 +92,7 @@ class Animation extends SetOptions {
         let interval = Math.abs(count - start);
         let step = (interval / duration) * 20;
         circle.setAttribute('stroke-dashoffset', counter);
-        function animated(){
+        const animated = ()=>{
             counter -= step;
             if(counter <= count){
                 circle.setAttribute('stroke-dashoffset', count);
