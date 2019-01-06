@@ -90,3 +90,9 @@
 	parameters.Height = 75;
 	// or
 	parameters.Height = "75px";
+
+## If only you need other actions
+
+	<script type="text/javascript" src="opportunities.js"></script>
+	<!-- or -->
+	<script type="text/javascript" src="opportunities.min.js"></script>
