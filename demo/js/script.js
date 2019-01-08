@@ -31,6 +31,7 @@ let parameters = new GeterSeterParameters(elem);
 
 console.log("Elem Width ", parameters.Width);
 console.log("Elem Height ", parameters.Height);
+
 setTimeout(()=>{
     parameters.Width = 100;
     parameters.Height = "75px";
