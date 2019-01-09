@@ -43,4 +43,8 @@ class GeterSeterParameters {
             }
         }
     }
+
+    replaceAll(count, search, replace){
+        return count.split(search).join(replace);
+    }
 }

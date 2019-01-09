@@ -43,6 +43,10 @@ class GeterSeterParameters {
             }
         }
     }
+
+    replaceAll(count, search, replace){
+        return count.split(search).join(replace);
+    }
 }
 
 class SetOptions {
@@ -54,13 +58,9 @@ class SetOptions {
         }
     }
 
-    _replaceAll(count, search, replace){
-        return count.split(search).join(replace);
-    }
-
     _setPercent(count, option){
         let percent,
-            progressCount = this._replaceAll(option.progressCount, ',', '.');
+            progressCount = new GeterSeterParameters().replaceAll(option.progressCount, ',', '.');
         if(!isNaN(parseFloat(option.progressCount))){
             if(parseFloat(option.progressCount).toFixed(2) <= count){
                 percent = (100 - ((100 * parseFloat(progressCount).toFixed(2)) / count)).toFixed(2);
@@ -117,7 +117,7 @@ class Animation extends SetOptions {
 class CreateSvg extends Animation {
     _setText(count, option, symbolPercent, position){
         let countInterval;
-        let progressCount = this._replaceAll(option.progressCount, ',', '.');
+        let progressCount = new GeterSeterParameters().replaceAll(option.progressCount, ',', '.');
         let text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 
         text.setAttribute('fill', option.fontColor);
