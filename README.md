@@ -29,7 +29,7 @@
         progressParentColor: '#E0E0E0',
 	}
 
-<table border="1" width="500px !important">
+<table border="1" style="width: 600px !important">
     <thead>
         <tr>
             <th style="padding: 3px;" align="center">Title</th>
