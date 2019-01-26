@@ -1,9 +1,10 @@
 # "Progress Bar" And "Width / Height" In JavaScript By Amur
 
-<img src="img/circleandtriangle.gif" style="width: 100%; max-width: 150px;" />
+[logo]: img/circleandtriangle.gif 
+
 
 | Key                 | Type               | Value                     |
-| ------------------- |:------------------:| -------------------------:|
+| ------------------- | :----------------: | ------------------------: |
 | type                | String             | "circle" or "triangle"    |
 | text                | Boolean            | true or false             |
 | fontColor           | String             | exp "#000000"             |
@@ -18,37 +19,11 @@
 | progressColor       | String             | exp "#00AAFF"             |
 | progressParentColor | String             | exp "#00AAFF"             |
 
-<table border="1">
-    <thead>
-        <tr>
-            <th style="padding: 3px;" align="center">Title</th>
-            <th style="padding: 3px;" align="center">link</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-        	<td style="padding: 3px;" align="center">Circle</td>
-            <td style="padding: 3px;" align="center">
-                <a href="documentation/progressbarcircle.md">Create Progress Bar With Circle In JavaScript</a>
-            </td>
-        </tr>
-        <tr>
-        	<td style="padding: 3px;" align="center">Triangle</td>
-        	<td style="padding: 3px;" align="center">
-                <a href="documentation/progressbartriangle.md">Create Progress Bar With Triangle In JavaScript</a>
-            </td>
-        </tr>
-        <tr>
-        	<td style="padding: 3px;" align="center">Opportunities</td>
-        	<td style="padding: 3px;" align="center">
-                <a href="documentation/otheropportunities.md">Other Opportunities In JavaScript</a>
-            </td>
-        </tr>
-        <tr>
-        	<td style="padding: 3px;" align="center">SVG Circle And Path</td>
-        	<td style="padding: 3px;" align="center">
-                <a href="documentation/circle.md">Create SVG Circle With Circle Or With Path And Triangle With Path</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+
+
+| Title               | link                                                                                         |
+| ------------------- | -------------------------------------------------------------------------------------------- |
+| Circle              | [Create Progress Bar With Circle In JavaScript](documentation/progressbarcircle.md)          |
+| Triangle            | [Create Progress Bar With Triangle In JavaScript](documentation/progressbartriangle.md)      |
+| Opportunities       | [Other Opportunities In JavaScript](documentation/otheropportunities.md)                     |
+| SVG Circle And Path | [Create SVG Circle With Circle Or With Path And Triangle With Path](documentation/circle.md) |
