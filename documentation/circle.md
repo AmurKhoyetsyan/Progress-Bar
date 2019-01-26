@@ -42,7 +42,7 @@
         ></path>
     </svg>
 
-# Triangle SVG Circle With path
+# Triangle SVG With path
 
 	<path d="
 		M 70, 5 
