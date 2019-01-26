@@ -1,9 +1,5 @@
 # "Progress Bar" And "Width / Height" In JavaScript By Amur
 
-## Example
-
-<img src="img/progress.gif" style="width: 100%; max-width: 600px;" />
-
 ## Get started
 
 ### html
@@ -16,31 +12,6 @@
 	<!-- or -->
 	<script type="text/javascript" src="progress.min.js"></script>
 
-### JavaScript
-
-	let Circle1 = document.getElementsByClassName('circle-1');
-	let Circle2 = document.getElementsByClassName('circle-2');
-	let Circle3 = document.getElementsByClassName('circle-3');
-
-	let options = {
-		type: 'circle',
-	    fontColor: '#FFFFFF',
-	    fontSize: 18,
-	    fontWeight: 900,
-	    fillParent: '#6949D7',
-	    fillChild: 'transparent',
-	    interval: 1000,
-	    animated: true,
-	    strokeWidthParent: 5,
-	    strokeWidthChild: 5,
-	    progressColor: '#FE3F44',
-	    progressParentColor: '#FFD200'
-	};
-
-	new Progress(Circle1, options).inPercentWithCircle();
-	new Progress(Circle2, options).inCountWithCircle(5);
-	new Progress(Circle3, options).inCounterWithCircle();
-	
 ### JavaScript default options
 
 	{
@@ -58,45 +29,37 @@
         progressParentColor: '#E0E0E0',
 	}
 
-## Other Opportunities:
-
-## Example
-
-<img src="img/other.gif" style="width: 100%; max-width: 256px;" />
-
-### html
-
-	<div class="other" style="width: 200px;"></div>
-### css
-
-	.other{
-	    width: 50px;
-	    height: 25px;
-	    border: 1px solid #000000;
-	    -webkit-transition: all 300ms linear;
-	    -moz-transition: all 300ms linear;
-	    -ms-transition: all 300ms linear;
-	    -o-transition: all 300ms linear;
-	    transition: all 300ms linear;
-	}
-
-### javascript
-
-	let elem = document.getElementsByClassName('other')[0];
-	let parameters = new GeterSeterParameters(elem);
-	parameters.Width; // return width
-	parameters.Width = 100;
-	// or
-	parameters.Width = "100px";
-	parameters.Height; // return height
-	parameters.Height = 75;
-	// or
-	parameters.Height = "75px";
-
-## If only you need other actions
-
-	<script type="text/javascript" src="opportunities.js"></script>
-	<!-- or -->
-	<script type="text/javascript" src="opportunities.min.js"></script>
-
-<a href="circle.md">Create SVG Circle With circle or With path</a>
+<table border="1" width="500px;">
+    <thead>
+        <tr>
+            <th style="padding: 3px;" align="center">Title</th>
+            <th style="padding: 3px;" align="center">link</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        	<td style="padding: 3px;" align="center">Circle</td>
+            <td style="padding: 3px;" align="center">
+                <a href="documentation/progressbarcircle.md">Create Progress Bar With Circle In JavaScript</a>
+            </td>
+        </tr>
+        <tr>
+        	<td style="padding: 3px;" align="center">Triangle</td>
+        	<td style="padding: 3px;" align="center">
+                <a href="documentation/progressbartriangle.md">Create Progress Bar With Triangle In JavaScript</a>
+            </td>
+        </tr>
+        <tr>
+        	<td style="padding: 3px;" align="center">Opportunities</td>
+        	<td style="padding: 3px;" align="center">
+                <a href="documentation/otheropportunities.md">Other Opportunities In JavaScript</a>
+            </td>
+        </tr>
+        <tr>
+        	<td style="padding: 3px;" align="center">SVG Circle And Path</td>
+        	<td style="padding: 3px;" align="center">
+                <a href="documentation/circle.md">Create SVG Circle With Circle Or With Path And Triangle With Path</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

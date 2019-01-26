@@ -142,7 +142,7 @@ class CreateSvg extends Animation {
 
         text.setAttribute('fill', option.fontColor);
         text.setAttribute('x', '50%');
-        text.setAttribute('y', '50%');
+        
         text.setAttribute('font-size', option.fontSize);
         text.setAttribute('font-weight', option.fontWeight);
         text.setAttribute('alignment-baseline', 'middle');
@@ -150,6 +150,12 @@ class CreateSvg extends Animation {
 
         if(option.type === 'circle'){
             text.setAttribute('transform', 'rotate(90,'+ position +','+ position +')');
+        }
+
+        if(option.type === 'triangle'){
+            text.setAttribute('y', '70%');
+        }else{
+            text.setAttribute('y', '50%');
         }
 
         if(!isNaN(parseFloat(progressCount))){
