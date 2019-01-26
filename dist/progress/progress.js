@@ -1,9 +1,10 @@
-/*********************************************
+/***********************************************************
 *
 *   Create by Amur
 *   Progress Bar And Other Opportunities
+*   Github https://github.com/AmurKhoyetsyan/Progress-Bar
 *
-*********************************************/
+************************************************************/
 
 'use strict';
 
@@ -93,6 +94,7 @@ class Animation extends SetOptions {
                 setTimeout(animated, 20);
             }
         }
+
         animated();
     }
 
@@ -110,6 +112,24 @@ class Animation extends SetOptions {
                 setTimeout(animated, 20);
             }
         }
+
+        animated();
+    }
+
+    _animateTriangle(start, count, duration, path){
+        let counter = start;
+        let interval = Math.abs(count - start);
+        let animated = ()=>{
+            let step = (interval / duration) * 20;
+            counter -= step;
+            if(counter <= count){
+                path.setAttribute('stroke-dashoffset', count);
+            }else{
+                path.setAttribute('stroke-dashoffset', counter);
+                setTimeout(animated, 20);
+            }
+        }
+
         animated();
     }
 }
@@ -127,7 +147,10 @@ class CreateSvg extends Animation {
         text.setAttribute('font-weight', option.fontWeight);
         text.setAttribute('alignment-baseline', 'middle');
         text.setAttribute('text-anchor', 'middle');
-        text.setAttribute('transform', 'rotate(90,'+ position +','+ position +')');
+
+        if(option.type === 'circle'){
+            text.setAttribute('transform', 'rotate(90,'+ position +','+ position +')');
+        }
 
         if(!isNaN(parseFloat(progressCount))){
             if(parseFloat(progressCount).toFixed(2) <= count){
@@ -157,38 +180,82 @@ class CreateSvg extends Animation {
         return circle;
     }
 
-    _setSvg(elem, option, count, prTrue ){
-        let setGet = new GeterSeterParameters(elem);
+    _setTriangle(fill, stroke, strokeWidth, width){
+        let path = document.createElementNS('http://www.w3.org/2000/svg', 'path'); // create path
+        path.setAttribute('d', `M ${width / 2}, ${0 + strokeWidth} L ${width - strokeWidth}, ${width - strokeWidth} L ${0 + strokeWidth}, ${width - strokeWidth} L ${width / 2}, ${0 + strokeWidth} Z`);
+        path.setAttribute('fill', fill);
+        path.setAttribute('stroke', stroke);
+        path.setAttribute('stroke-width', strokeWidth);
+        path.setAttribute('stroke-linecap', 'round');
+        return path;
+    }
 
+    _setSvg(elem, option, count, prTrue){
+        let setGet = new GeterSeterParameters(elem);
         let percent = this._setPercent(count, option);
-        
         let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        let width = setGet.Width / 2;
-        let radius = width - (option.strokeWidthChild / 2);
-        let circleWidth = 2 * Math.PI * radius;
-        let circlePercent = (circleWidth * percent) / 100;
+
+        let width,
+            progressParent,
+            progressChild;
 
         svg.setAttribute('height', setGet.Width);
         svg.setAttribute('width', setGet.Width);
-        svg.setAttribute('transform', 'rotate(270)');
-        svg.setAttribute('viewbox', '0 0 ' + setGet.Width + ' ' + setGet.Width);
+        svg.setAttribute('viewBox', '0 0 ' + setGet.Width + ' ' + setGet.Width);
 
-        let circleParent = this._setCircle(option.fillParent, option.progressParentCircleColor, option.strokeWidthParent, radius, width);
-        let circleChild = this._setCircle(option.fillChild, option.progressColor, option.strokeWidthChild, radius, width);
-        let text = this._setText(count, option, prTrue, width);
+        switch(option.type){
+            case 'circle':
+                width = setGet.Width / 2;
+                let radius = width - (option.strokeWidthChild / 2);
+                let circleWidth = 2 * Math.PI * radius;
+                let circlePercent = (circleWidth * percent) / 100;
 
-        if(option.animated){
-            this._animatedCircle(circleWidth, circlePercent, option.interval, circleChild);
-        }else{
-            circleChild.setAttribute('stroke-dashoffset', circlePercent);
+                svg.setAttribute('transform', 'rotate(270)');
+
+                progressParent = this._setCircle(option.fillParent, option.progressParentColor, option.strokeWidthParent, radius, width);
+                progressChild = this._setCircle(option.fillChild, option.progressColor, option.strokeWidthChild, radius, width);
+                
+                progressChild.setAttribute('stroke-dasharray', circleWidth);
+
+                if(option.animated){
+                    this._animatedCircle(circleWidth, circlePercent, option.interval, progressChild);
+                }else{
+                    progressChild.setAttribute('stroke-dashoffset', circlePercent);
+                }
+
+                break;
+            case 'triangle':
+                width = setGet.Width;
+                let a = Math.sqrt(Math.pow(width, 2) + Math.pow(width / 2, 2));
+                let triangleWidth = a + a + width;
+                let per = (triangleWidth * percent) / 100;
+
+                progressParent = this._setTriangle(option.fillParent, option.progressParentColor, option.strokeWidthParent, width); 
+                progressChild = this._setTriangle(option.fillChild, option.progressColor, option.strokeWidthChild, width);
+
+                progressChild.setAttribute('stroke-dasharray', `${triangleWidth} , ${triangleWidth}`);
+
+                if(option.animated){
+                    this._animateTriangle(triangleWidth, per, option.interval, progressChild);
+                }else{
+                    progressChild.setAttribute('stroke-dashoffset', per);
+                }
+
+                break;
+            default: console.log('%c%s', 'color: red; font-size: 32px; font-weight: 700; text-transform: uppercase;', 'type not fount');
         }
 
-        circleChild.setAttribute('stroke-dasharray', circleWidth);
 
-        svg.appendChild(circleParent);
-        svg.appendChild(circleChild);
-        svg.appendChild(text);
-
+        try{
+            svg.appendChild(progressParent);
+            svg.appendChild(progressChild);
+            if(option.text){
+                let text = this._setText(count, option, prTrue, width);
+                svg.appendChild(text);
+            }
+        }catch(error){
+            console.log('%c%s', 'color: red; font-size: 32px; font-weight: 700; text-transform: uppercase;', 'ERROR VALIDATE', error);
+        }
         return svg;
     }
 }
@@ -199,6 +266,8 @@ class Progress extends CreateSvg {
         this.elem = elem;
         this.options = options;
         this.defaultOptions = {
+            type: 'circle',
+            text: true,
             fontColor: '#000000',
             fontSize: 16,
             fontWeight: 400,
@@ -209,7 +278,7 @@ class Progress extends CreateSvg {
             strokeWidthParent: 3,
             strokeWidthChild: 5,
             progressColor: '#00AAFF',
-            progressParentCircleColor: '#E0E0E0',
+            progressParentColor: '#E0E0E0',
         }
     }
 

@@ -23,6 +23,7 @@
 	let Circle3 = document.getElementsByClassName('circle-3');
 
 	let options = {
+		type: 'circle',
 	    fontColor: '#FFFFFF',
 	    fontSize: 18,
 	    fontWeight: 900,
@@ -33,16 +34,17 @@
 	    strokeWidthParent: 5,
 	    strokeWidthChild: 5,
 	    progressColor: '#FE3F44',
-	    progressParentCircleColor: '#FFD200'
+	    progressParentColor: '#FFD200'
 	};
 
-	new Progress(Circle1, options).inPercent();
-	new Progress(Circle2, options).inCount(5);
-	new Progress(Circle3, options).inCounter();
+	new Progress(Circle1, options).inPercentWithCircle();
+	new Progress(Circle2, options).inCountWithCircle(5);
+	new Progress(Circle3, options).inCounterWithCircle();
 	
 ### JavaScript default options
 
 	{
+		type: 'circle',
         fontColor: '#000000',
         fontSize: 16,
         fontWeight: 400,
@@ -53,7 +55,7 @@
         strokeWidthParent: 3,
         strokeWidthChild: 5,
         progressColor: '#00AAFF',
-        progressParentCircleColor: '#E0E0E0',
+        progressParentColor: '#E0E0E0',
 	}
 
 ## Other Opportunities:
@@ -96,3 +98,5 @@
 	<script type="text/javascript" src="opportunities.js"></script>
 	<!-- or -->
 	<script type="text/javascript" src="opportunities.min.js"></script>
+
+<a href="circle.md">Create SVG Circle With circle or With path</a>

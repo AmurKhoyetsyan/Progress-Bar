@@ -5,6 +5,8 @@ let Circle2 = document.getElementsByClassName('circle-2');
 let Circle3 = document.getElementsByClassName('circle-3');
 
 let options = {
+    type: 'circle',
+    text: true,
     fontColor: '#FFFFFF',
     fontSize: 18,
     fontWeight: 900,
@@ -15,13 +17,33 @@ let options = {
     strokeWidthParent: 5,
     strokeWidthChild: 5,
     progressColor: '#FE3F44',
-    progressParentCircleColor: '#FFD200'
+    progressParentColor: '#FFD200'
 };
 
 new Progress(Circle1, options).inPercent();
 new Progress(Circle2, options).inCount(5);
 new Progress(Circle3, options).inCounter();
 
+
+let triangle = document.getElementsByClassName('triangle');
+
+let options1 = {
+    type: 'triangle',
+    text: true,
+    fontColor: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: 900,
+    fillParent: '#6949D7',
+    fillChild: 'transparent',
+    interval: 1000,
+    animated: true,
+    strokeWidthParent: 5,
+    strokeWidthChild: 5,
+    progressColor: '#FE3F44',
+    progressParentColor: '#FFD200'
+};
+
+new Progress(triangle, options1).inPercent();
 
 // Other Opportunities
 
@@ -69,6 +91,8 @@ let answerButton = document.querySelectorAll('.button-evaluate');
 answerProgress[0].setAttribute('data-count', counter(answers));
 
 let ansvwerOptions = {
+    type: 'circle',
+    text: true,
     fontColor: '#FFFFFF',
     fontSize: 15,
     fontWeight: 900,
@@ -79,7 +103,7 @@ let ansvwerOptions = {
     strokeWidthParent: 5,
     strokeWidthChild: 5,
     progressColor: '#8bc34a',
-    progressParentCircleColor: '#ff9800'
+    progressParentColor: '#ff9800'
 };
 
 let answerrCirce = new Progress(answerProgress, ansvwerOptions).inCount(5);
