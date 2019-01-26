@@ -29,7 +29,7 @@
         progressParentColor: '#E0E0E0',
 	}
 
-<table border="1" width="500px;">
+<table border="1">
     <thead>
         <tr>
             <th style="padding: 3px;" align="center">Title</th>
@@ -40,25 +40,25 @@
         <tr>
         	<td style="padding: 3px;" align="center">Circle</td>
             <td style="padding: 3px;" align="center">
-                <a href="documentation/progressbarcircle.md">Create Progress Bar With Circle In JavaScript</a>
+                <a href="documentation/progressbarcircle.md" style="color: #000000;">Create Progress Bar With Circle In JavaScript</a>
             </td>
         </tr>
         <tr>
         	<td style="padding: 3px;" align="center">Triangle</td>
         	<td style="padding: 3px;" align="center">
-                <a href="documentation/progressbartriangle.md">Create Progress Bar With Triangle In JavaScript</a>
+                <a href="documentation/progressbartriangle.md" style="color: #000000;">Create Progress Bar With Triangle In JavaScript</a>
             </td>
         </tr>
         <tr>
         	<td style="padding: 3px;" align="center">Opportunities</td>
         	<td style="padding: 3px;" align="center">
-                <a href="documentation/otheropportunities.md">Other Opportunities In JavaScript</a>
+                <a href="documentation/otheropportunities.md" style="color: #000000;">Other Opportunities In JavaScript</a>
             </td>
         </tr>
         <tr>
         	<td style="padding: 3px;" align="center">SVG Circle And Path</td>
         	<td style="padding: 3px;" align="center">
-                <a href="documentation/circle.md">Create SVG Circle With Circle Or With Path And Triangle With Path</a>
+                <a href="documentation/circle.md" style="color: #000000;">Create SVG Circle With Circle Or With Path And Triangle With Path</a>
             </td>
         </tr>
     </tbody>
