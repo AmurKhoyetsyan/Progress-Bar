@@ -2,34 +2,82 @@
 
 <img src="img/circleandtriangle.gif" style="width: 100%; max-width: 150px;" />
 
-## Get started
-
-### html
-
-	<div class="circle-1" data-count="85" style="width: 200px;"></div>
-	<div class="circle-2" data-count="4,55" style="width: 200px;"></div>
-	<div class="circle-3" data-count="70000" style="width: 200px;"></div>
-	
-	<script type="text/javascript" src="progress.js"></script>
-	<!-- or -->
-	<script type="text/javascript" src="progress.min.js"></script>
-
-### JavaScript default options
-
-	{
-		type: 'circle',
-        fontColor: '#000000',
-        fontSize: 16,
-        fontWeight: 400,
-        fillParent: 'none',
-        fillChild: 'none',
-        interval: 1000,
-        animated: false,
-        strokeWidthParent: 3,
-        strokeWidthChild: 5,
-        progressColor: '#00AAFF',
-        progressParentColor: '#E0E0E0',
-	}
+<table border="1">
+    <thead>
+        <tr>
+            <th style="padding: 3px;" align="center">Key</th>
+            <th style="padding: 3px;" align="center">Type</th>
+            <th style="padding: 3px;" align="center">Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="padding: 3px;" align="center">type</td>
+            <td style="padding: 3px;" align="center">String</td>
+            <td style="padding: 3px;" align="center">"circle" or "triangle"</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">text</td>
+            <td style="padding: 3px;" align="center">Boolean</td>
+            <td style="padding: 3px;" align="center">true or false</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">fontColor</td>
+            <td style="padding: 3px;" align="center">String</td>
+            <td style="padding: 3px;" align="center">exp "#000000"</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">fontSize</td>
+            <td style="padding: 3px;" align="center">Number</td>
+            <td style="padding: 3px;" align="center">exp 17</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">fontWeight</td>
+            <td style="padding: 3px;" align="center">String or Number</td>
+            <td style="padding: 3px;" align="center">exp "bold" or 700</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">fillParent</td>
+            <td style="padding: 3px;" align="center">String</td>
+            <td style="padding: 3px;" align="center">exp "#00AAFF"</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">fillChild</td>
+            <td style="padding: 3px;" align="center">String</td>
+            <td style="padding: 3px;" align="center">exp "#00AAFF"</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">interval</td>
+            <td style="padding: 3px;" align="center">Number</td>
+            <td style="padding: 3px;" align="center">exp 1000</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">animated</td>
+            <td style="padding: 3px;" align="center">Boolean</td>
+            <td style="padding: 3px;" align="center">true or false</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">strokeWidthParent</td>
+            <td style="padding: 3px;" align="center">Number</td>
+            <td style="padding: 3px;" align="center">exp 3</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">strokeWidthChild</td>
+            <td style="padding: 3px;" align="center">Number</td>
+            <td style="padding: 3px;" align="center">exp 5</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">progressColor</td>
+            <td style="padding: 3px;" align="center">String</td>
+            <td style="padding: 3px;" align="center">exp "#00AAFF"</td>
+        </tr>
+        <tr>
+            <td style="padding: 3px;" align="center">progressParentColor</td>
+            <td style="padding: 3px;" align="center">String</td>
+            <td style="padding: 3px;" align="center">exp "#00AAFF"</td>
+        </tr>
+    </tbody>
+</table>
 
 <table border="1">
     <thead>
