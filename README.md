@@ -1,7 +1,6 @@
 # "Progress Bar" And "Width / Height" In JavaScript By Amur
 
-[logo]: img/circleandtriangle.gif 
-
+<img src="img/circleandtriangle.gif" style="width: 100%; max-width: 150px;" />
 
 | Key                 | Type               | Value                     |
 | ------------------- | :----------------: | ------------------------: |
