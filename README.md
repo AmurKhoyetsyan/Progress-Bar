@@ -1,5 +1,7 @@
 # "Progress Bar" And "Width / Height" In JavaScript By Amur
 
+<img src="img/circleandtriangle.gif" style="width: 100%; max-width: 150px;" />
+
 ## Get started
 
 ### html
@@ -29,7 +31,7 @@
         progressParentColor: '#E0E0E0',
 	}
 
-<table border="1" style="width: 600px !important">
+<table border="1">
     <thead>
         <tr>
             <th style="padding: 3px;" align="center">Title</th>
