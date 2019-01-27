@@ -2,6 +2,8 @@
 
 <img src="img/allprogress.gif" />
 
+## Options
+
 | Key                 | Type               | Value                               |
 | ------------------- | :----------------: | ----------------------------------: |
 | type                | String             | "circle" or "triangle" or "cubic"   |
@@ -18,7 +20,7 @@
 | progressColor       | String             | exp "#00AAFF"                       |
 | progressParentColor | String             | exp "#00AAFF"                       |
 
-
+## Documentation
 
 | Title               | link                                                                                         |
 | ------------------- | -------------------------------------------------------------------------------------------- |
