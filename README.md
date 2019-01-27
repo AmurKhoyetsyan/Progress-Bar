@@ -1,6 +1,6 @@
 # "Progress Bar" And "Width / Height" In JavaScript By Amur
 
-<img src="img/allprogress.gif" style="width: 100%; max-width: 150px;" />
+<img src="img/allprogress.gif" />
 
 | Key                 | Type               | Value                               |
 | ------------------- | :----------------: | ----------------------------------: |

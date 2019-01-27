@@ -2,7 +2,7 @@
 
 ## Example
 
-<img src="../img/other.gif" style="width: 100%; max-width: 256px;" />
+<img src="../img/other.gif" />
 
 ### html
 

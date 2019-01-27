@@ -1,6 +1,6 @@
 ## Example
 
-<img src="../img/progresstriangle.gif" style="width: 100%; max-width: 600px;" />
+<img src="../img/progresscubic.gif" />
 
 ## Get started
 

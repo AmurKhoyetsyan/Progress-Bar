@@ -1,6 +1,6 @@
 ## Example
 
-<img src="../img/progresscircle.gif" style="width: 100%; max-width: 600px;" />
+<img src="../img/progresscircle.gif" />
 
 ## Get started
 
