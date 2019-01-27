@@ -72,9 +72,16 @@ class SetOptions {
 }
 
 class Animation extends SetOptions {
+    constructor(){
+        super();
+        this.state = {
+            time: 1000 / 24
+        }
+    }
+
     _animatedText(count, duration, textTag, symbolPercent){
         let start = 0;
-        let step = (count / duration) * 20;
+        let step = (count / duration) * this.state.time;
 
         const setParseText = (text, symbol)=>{
             let percent = (Math.ceil(text) > text)?(parseFloat(parseFloat(text).toFixed(2))):(parseInt(text));
@@ -91,7 +98,7 @@ class Animation extends SetOptions {
                 textTag.innerHTML = setParseText(count, symbolPercent);
             }else{
                 textTag.innerHTML = setParseText(start, symbolPercent);
-                setTimeout(animated, 20);
+                setTimeout(animated, this.state.time);
             }
         }
 
@@ -101,7 +108,7 @@ class Animation extends SetOptions {
     _animatedCircle(start, count, duration, circle){
         let counter = start;
         let interval = Math.abs(count - start);
-        let step = (interval / duration) * 20;
+        let step = (interval / duration) * this.state.time;
         circle.setAttribute('stroke-dashoffset', counter);
         const animated = ()=>{
             counter -= step;
@@ -109,24 +116,24 @@ class Animation extends SetOptions {
                 circle.setAttribute('stroke-dashoffset', count);
             }else{
                 circle.setAttribute('stroke-dashoffset', counter);
-                setTimeout(animated, 20);
+                setTimeout(animated, this.state.time);
             }
         }
 
         animated();
     }
 
-    _animateTriangle(start, count, duration, path){
+    _animateTriangleAndCubic(start, count, duration, path){
         let counter = start;
         let interval = Math.abs(count - start);
         let animated = ()=>{
-            let step = (interval / duration) * 20;
+            let step = (interval / duration) * this.state.time;
             counter -= step;
             if(counter <= count){
                 path.setAttribute('stroke-dashoffset', count);
             }else{
                 path.setAttribute('stroke-dashoffset', counter);
-                setTimeout(animated, 20);
+                setTimeout(animated, this.state.time);
             }
         }
 
@@ -183,6 +190,7 @@ class CreateSvg extends Animation {
         circle.setAttribute('cy', width);
         circle.setAttribute('r', radius);
         circle.setAttribute('stroke-width', strokeWidth);
+        circle.setAttribute('stroke-linecap', 'round');
         return circle;
     }
 
@@ -196,12 +204,23 @@ class CreateSvg extends Animation {
         return path;
     }
 
+    _setCubic(fill, stroke, strokeWidth, width){
+        let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', `M ${0 + strokeWidth}, ${0 + strokeWidth} L ${width - strokeWidth}, ${0 + strokeWidth} L ${width - strokeWidth}, ${width - strokeWidth} L ${0 + strokeWidth}, ${width - strokeWidth} L ${0 + strokeWidth}, ${0 + strokeWidth} Z`);
+        path.setAttribute('fill', fill);
+        path.setAttribute('stroke', stroke);
+        path.setAttribute('stroke-width', strokeWidth);
+        path.setAttribute('stroke-linecap', 'square');
+        return path;
+    }
+
     _setSvg(elem, option, count, prTrue){
         let setGet = new GeterSeterParameters(elem);
         let percent = this._setPercent(count, option);
         let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
-        let width,
+        let per,
+            width,
             progressParent,
             progressChild;
 
@@ -234,7 +253,7 @@ class CreateSvg extends Animation {
                 width = setGet.Width;
                 let a = Math.sqrt(Math.pow(width, 2) + Math.pow(width / 2, 2));
                 let triangleWidth = a + a + width;
-                let per = (triangleWidth * percent) / 100;
+                per = (triangleWidth * percent) / 100;
 
                 progressParent = this._setTriangle(option.fillParent, option.progressParentColor, option.strokeWidthParent, width); 
                 progressChild = this._setTriangle(option.fillChild, option.progressColor, option.strokeWidthChild, width);
@@ -242,15 +261,31 @@ class CreateSvg extends Animation {
                 progressChild.setAttribute('stroke-dasharray', `${triangleWidth} , ${triangleWidth}`);
 
                 if(option.animated){
-                    this._animateTriangle(triangleWidth, per, option.interval, progressChild);
+                    this._animateTriangleAndCubic(triangleWidth, per, option.interval, progressChild);
                 }else{
                     progressChild.setAttribute('stroke-dashoffset', per);
                 }
 
-                break;
-            default: console.log('%c%s', 'color: red; font-size: 32px; font-weight: 700; text-transform: uppercase;', 'type not fount');
-        }
+            break;
+            case 'cubic':
+                width = setGet.Width;
+                let cubicWidth = 4 * (width - option.strokeWidthChild);
+                per = (cubicWidth * percent) / 100;
 
+                progressParent = this._setCubic(option.fillParent, option.progressParentColor, option.strokeWidthParent, width); 
+                progressChild = this._setCubic(option.fillChild, option.progressColor, option.strokeWidthChild, width);
+
+                progressChild.setAttribute('stroke-dasharray', `${cubicWidth} , ${cubicWidth}`);
+
+                if(option.animated){
+                    this._animateTriangleAndCubic(cubicWidth, per, option.interval, progressChild);
+                }else{
+                    progressChild.setAttribute('stroke-dashoffset', per);
+                }
+
+            break;
+            default: console.log('%c%s', 'color: red; font-size: 32px; font-weight: 700; text-transform: uppercase;', 'type not found');
+        }
 
         try{
             svg.appendChild(progressParent);

@@ -45,6 +45,26 @@ let options1 = {
 
 new Progress(triangle, options1).inPercent();
 
+let cubic = document.getElementsByClassName('cubic-1');
+
+let options2 = {
+    type: 'cubic',
+    text: true,
+    fontColor: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: 900,
+    fillParent: '#6949D7',
+    fillChild: 'transparent',
+    interval: 1000,
+    animated: true,
+    strokeWidthParent: 5,
+    strokeWidthChild: 5,
+    progressColor: '#FE3F44',
+    progressParentColor: '#FFD200'
+};
+
+new Progress(cubic, options2).inPercent();
+
 // Other Opportunities
 
 let elem = document.getElementsByClassName('other')[0];
