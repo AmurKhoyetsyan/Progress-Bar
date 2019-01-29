@@ -69,7 +69,7 @@ new Progress(cubic, options2).inPercent();
 
 let elem = document.getElementsByClassName('other')[0];
 
-let parameters = new GeterSeterParameters(elem);
+let parameters = new GetterSetterParameters(elem);
 
 console.log("Elem Width ", parameters.Width);
 console.log("Elem Height ", parameters.Height);
@@ -132,7 +132,7 @@ let cliked = true;
 for(let i = 0; i < answerButton.length; i++){
     answerButton[i].addEventListener('click', ()=>{
         if(cliked){
-            let count = (parseFloat(parseFloat(new GeterSeterParameters().replaceAll(answerProgress[0].getAttribute('data-count'), ',', '.')) + (i + 1))) / 2;
+            let count = (parseFloat(parseFloat(new GetterSetterParameters().replaceAll(answerProgress[0].getAttribute('data-count'), ',', '.')) + (i + 1))) / 2;
             answers.push(count);
             answerProgress[0].setAttribute('data-count', counter(answers));
             answerProgress[0].innerHTML = '';

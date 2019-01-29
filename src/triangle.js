@@ -11,7 +11,11 @@
 class CreateTriangle {
     constructor(elem){
         this.elem = elem;
-    }
+    };
+
+    /**
+     * @returns {Number}
+     */
 
     width(){
         if(this.elem){
@@ -35,5 +39,5 @@ class CreateTriangle {
         svg.appendChild(path);
 
         this.elem.appendChild(svg);
-    }
+    };
 }

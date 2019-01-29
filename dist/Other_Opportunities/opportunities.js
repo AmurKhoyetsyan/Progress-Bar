@@ -8,16 +8,26 @@
 
 'use strict';
 
-class GeterSeterParameters {
+class GetterSetterParameters {
     constructor(elem){
         this.elem = elem;
-    }
+    };
+
+    /**
+     * @returns {Number}
+     * @constructor
+     */
 
     get Height(){
         if(this.elem){
             return parseFloat(this.elem.clientHeight);
         }
-    }
+    };
+
+    /**
+     * @param height
+     * @constructor
+     */
 
     set Height(height){
         if(this.elem){
@@ -27,13 +37,23 @@ class GeterSeterParameters {
                 this.elem.style.height = height;
             }
         }
-    }
+    };
+
+    /**
+     * @returns {Number}
+     * @constructor
+     */
 
     get Width(){
         if(this.elem){
             return parseFloat(this.elem.clientWidth);
         }
-    }
+    };
+
+    /**
+     * @param width
+     * @constructor
+     */
 
     set Width(width){
         if(this.elem){
@@ -43,9 +63,16 @@ class GeterSeterParameters {
                 this.elem.style.width = width;
             }
         }
-    }
+    };
+
+    /**
+     * @param count
+     * @param search
+     * @param replace
+     * @returns {string}
+     */
 
     replaceAll(count, search, replace){
         return count.split(search).join(replace);
-    }
+    };
 }

@@ -23,7 +23,7 @@
 ### javascript
 
 	let elem = document.getElementsByClassName('other')[0];
-	let parameters = new GeterSeterParameters(elem);
+	let parameters = new GetterSetterParameters(elem);
 	parameters.Width; // return width
 	parameters.Width = 100;
 	// or

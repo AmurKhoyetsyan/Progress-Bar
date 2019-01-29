@@ -11,13 +11,17 @@
 class CreateCubic {
     constructor(elem){
         this.elem = elem;
-    }
+    };
+
+    /**
+     * @returns {Number}
+     */
 
     width(){
         if(this.elem){
             return parseFloat(this.elem.clientWidth);
         }
-    }
+    };
 
     cubic(){
         let width = this.width();
@@ -35,5 +39,5 @@ class CreateCubic {
         svg.appendChild(path);
 
         this.elem.appendChild(svg);
-    }
+    };
 }

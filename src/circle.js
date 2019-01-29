@@ -11,13 +11,17 @@
 class CreateCicle {
     constructor(elem){
         this.elem = elem;
-    }
+    };
+
+    /**
+     * @returns {Number}
+     */
 
     width(){
         if(this.elem){
             return parseFloat(this.elem.clientWidth);
         }
-    }
+    };
 
     circle(){
         let width = this.width();
@@ -37,5 +41,5 @@ class CreateCicle {
         svg.appendChild(circle);
 
         this.elem.appendChild(svg);
-    }
+    };
 }

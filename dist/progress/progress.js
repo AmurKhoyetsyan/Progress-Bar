@@ -1,23 +1,32 @@
 /***********************************************************
-*
-*   Create by Amur
-*   Progress Bar And Other Opportunities
-*   Github https://github.com/AmurKhoyetsyan/Progress-Bar
-*
-************************************************************/
+ *
+ *   Create by Amur
+ *   Progress Bar And Other Opportunities
+ *   Github https://github.com/AmurKhoyetsyan/Progress-Bar
+ *
+ ************************************************************/
 
 'use strict';
 
-class GeterSeterParameters {
+class GetterSetterParameters {
     constructor(elem){
         this.elem = elem;
-    }
+    };
 
+    /**
+     * @returns {Number}
+     * @constructor
+     */
     get Height(){
         if(this.elem){
             return parseFloat(this.elem.clientHeight);
         }
-    }
+    };
+
+    /**
+     * @param height
+     * @constructor
+     */
 
     set Height(height){
         if(this.elem){
@@ -27,13 +36,23 @@ class GeterSeterParameters {
                 this.elem.style.height = height;
             }
         }
-    }
+    };
+
+    /**
+     * @returns {Number}
+     * @constructor
+     */
 
     get Width(){
         if(this.elem){
             return parseFloat(this.elem.clientWidth);
         }
-    }
+    };
+
+    /**
+     * @param width
+     * @constructor
+     */
 
     set Width(width){
         if(this.elem){
@@ -43,32 +62,53 @@ class GeterSeterParameters {
                 this.elem.style.width = width;
             }
         }
-    }
+    };
+
+    /**
+     * @param count
+     * @param search
+     * @param replace
+     * @returns {string}
+     */
 
     replaceAll(count, search, replace){
         return count.split(search).join(replace);
-    }
+    };
 }
 
 class SetOptions {
+
+    /**
+     * @param newOptions
+     * @param options
+     * @private
+     */
+
     _getOptions(newOptions, options){
         if(newOptions){
             for(let key in newOptions){
                 options[key] = newOptions[key];
             }
         }
-    }
+    };
+
+    /**
+     * @param count
+     * @param option
+     * @returns {*}
+     * @private
+     */
 
     _setPercent(count, option){
         let percent,
-            progressCount = new GeterSeterParameters().replaceAll(option.progressCount, ',', '.');
+            progressCount = new GetterSetterParameters().replaceAll(option.progressCount, ',', '.');
         if(!isNaN(parseFloat(option.progressCount))){
             if(parseFloat(option.progressCount).toFixed(2) <= count){
                 percent = (100 - ((100 * parseFloat(progressCount).toFixed(2)) / count)).toFixed(2);
             }
         }
         return percent;
-    }
+    };
 }
 
 class Animation extends SetOptions {
@@ -79,9 +119,23 @@ class Animation extends SetOptions {
         }
     }
 
+    /**
+     * @param count
+     * @param duration
+     * @param textTag
+     * @param symbolPercent
+     * @private
+     */
+
     _animatedText(count, duration, textTag, symbolPercent){
         let start = 0;
         let step = (count / duration) * this.state.time;
+
+        /**
+         * @param text
+         * @param symbol
+         * @returns {*}
+         */
 
         const setParseText = (text, symbol)=>{
             let percent = (Math.ceil(text) > text)?(parseFloat(parseFloat(text).toFixed(2))):(parseInt(text));
@@ -90,7 +144,7 @@ class Animation extends SetOptions {
             }else{
                 return percent;
             }
-        }
+        };
 
         const animated = ()=>{
             start += step;
@@ -100,16 +154,25 @@ class Animation extends SetOptions {
                 textTag.innerHTML = setParseText(start, symbolPercent);
                 setTimeout(animated, this.state.time);
             }
-        }
+        };
 
         animated();
-    }
+    };
+
+    /**
+     * @param start
+     * @param count
+     * @param duration
+     * @param circle
+     * @private
+     */
 
     _animatedCircle(start, count, duration, circle){
         let counter = start;
         let interval = Math.abs(count - start);
         let step = (interval / duration) * this.state.time;
         circle.setAttribute('stroke-dashoffset', counter);
+
         const animated = ()=>{
             counter -= step;
             if(counter <= count){
@@ -118,14 +181,23 @@ class Animation extends SetOptions {
                 circle.setAttribute('stroke-dashoffset', counter);
                 setTimeout(animated, this.state.time);
             }
-        }
+        };
 
         animated();
     }
 
+    /**
+     * @param start
+     * @param count
+     * @param duration
+     * @param path
+     * @private
+     */
+
     _animateTriangleAndCubic(start, count, duration, path){
         let counter = start;
         let interval = Math.abs(count - start);
+
         let animated = ()=>{
             let step = (interval / duration) * this.state.time;
             counter -= step;
@@ -135,21 +207,31 @@ class Animation extends SetOptions {
                 path.setAttribute('stroke-dashoffset', counter);
                 setTimeout(animated, this.state.time);
             }
-        }
+        };
 
         animated();
     }
 }
 
 class CreateSvg extends Animation {
+
+    /**
+     * @param count
+     * @param option
+     * @param symbolPercent
+     * @param position
+     * @returns {Element}
+     * @private
+     */
+
     _setText(count, option, symbolPercent, position){
         let countInterval;
-        let progressCount = new GeterSeterParameters().replaceAll(option.progressCount, ',', '.');
+        let progressCount = new GetterSetterParameters().replaceAll(option.progressCount, ',', '.');
         let text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 
         text.setAttribute('fill', option.fontColor);
         text.setAttribute('x', '50%');
-        
+
         text.setAttribute('font-size', option.fontSize);
         text.setAttribute('font-weight', option.fontWeight);
         text.setAttribute('alignment-baseline', 'middle');
@@ -180,7 +262,17 @@ class CreateSvg extends Animation {
             this._animatedText(countInterval, option.interval, text, symbolPercent)
         }
         return text;
-    }
+    };
+
+    /**
+     * @param fill
+     * @param stroke
+     * @param strokeWidth
+     * @param radius
+     * @param width
+     * @returns {Element}
+     * @private
+     */
 
     _setCircle(fill, stroke, strokeWidth, radius, width){
         let circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
@@ -192,7 +284,16 @@ class CreateSvg extends Animation {
         circle.setAttribute('stroke-width', strokeWidth);
         circle.setAttribute('stroke-linecap', 'round');
         return circle;
-    }
+    };
+
+    /**
+     * @param fill
+     * @param stroke
+     * @param strokeWidth
+     * @param width
+     * @returns {Element}
+     * @private
+     */
 
     _setTriangle(fill, stroke, strokeWidth, width){
         let path = document.createElementNS('http://www.w3.org/2000/svg', 'path'); // create path
@@ -202,7 +303,16 @@ class CreateSvg extends Animation {
         path.setAttribute('stroke-width', strokeWidth);
         path.setAttribute('stroke-linecap', 'round');
         return path;
-    }
+    };
+
+    /**
+     * @param fill
+     * @param stroke
+     * @param strokeWidth
+     * @param width
+     * @returns {Element}
+     * @private
+     */
 
     _setCubic(fill, stroke, strokeWidth, width){
         let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -212,10 +322,19 @@ class CreateSvg extends Animation {
         path.setAttribute('stroke-width', strokeWidth);
         path.setAttribute('stroke-linecap', 'square');
         return path;
-    }
+    };
+
+    /**
+     * @param elem
+     * @param option
+     * @param count
+     * @param prTrue
+     * @returns {Element}
+     * @private
+     */
 
     _setSvg(elem, option, count, prTrue){
-        let setGet = new GeterSeterParameters(elem);
+        let setGet = new GetterSetterParameters(elem);
         let percent = this._setPercent(count, option);
         let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
@@ -239,7 +358,7 @@ class CreateSvg extends Animation {
 
                 progressParent = this._setCircle(option.fillParent, option.progressParentColor, option.strokeWidthParent, radius, width);
                 progressChild = this._setCircle(option.fillChild, option.progressColor, option.strokeWidthChild, radius, width);
-                
+
                 progressChild.setAttribute('stroke-dasharray', circleWidth);
 
                 if(option.animated){
@@ -255,7 +374,7 @@ class CreateSvg extends Animation {
                 let triangleWidth = a + a + width;
                 per = (triangleWidth * percent) / 100;
 
-                progressParent = this._setTriangle(option.fillParent, option.progressParentColor, option.strokeWidthParent, width); 
+                progressParent = this._setTriangle(option.fillParent, option.progressParentColor, option.strokeWidthParent, width);
                 progressChild = this._setTriangle(option.fillChild, option.progressColor, option.strokeWidthChild, width);
 
                 progressChild.setAttribute('stroke-dasharray', `${triangleWidth} , ${triangleWidth}`);
@@ -266,13 +385,13 @@ class CreateSvg extends Animation {
                     progressChild.setAttribute('stroke-dashoffset', per);
                 }
 
-            break;
+                break;
             case 'cubic':
                 width = setGet.Width;
                 let cubicWidth = 4 * (width - option.strokeWidthChild);
                 per = (cubicWidth * percent) / 100;
 
-                progressParent = this._setCubic(option.fillParent, option.progressParentColor, option.strokeWidthParent, width); 
+                progressParent = this._setCubic(option.fillParent, option.progressParentColor, option.strokeWidthParent, width);
                 progressChild = this._setCubic(option.fillChild, option.progressColor, option.strokeWidthChild, width);
 
                 progressChild.setAttribute('stroke-dasharray', `${cubicWidth} , ${cubicWidth}`);
@@ -283,7 +402,7 @@ class CreateSvg extends Animation {
                     progressChild.setAttribute('stroke-dashoffset', per);
                 }
 
-            break;
+                break;
             default: console.log('%c%s', 'color: red; font-size: 32px; font-weight: 700; text-transform: uppercase;', 'type not found');
         }
 
@@ -298,7 +417,7 @@ class CreateSvg extends Animation {
             console.log('%c%s', 'color: red; font-size: 32px; font-weight: 700; text-transform: uppercase;', 'ERROR VALIDATE', error);
         }
         return svg;
-    }
+    };
 }
 
 class Progress extends CreateSvg {
@@ -321,7 +440,7 @@ class Progress extends CreateSvg {
             progressColor: '#00AAFF',
             progressParentColor: '#E0E0E0',
         }
-    }
+    };
 
     inPercent(){
         if(this.elem){
@@ -337,7 +456,7 @@ class Progress extends CreateSvg {
                 this.elem[i].append(svg);
             }
         }
-    }
+    };
 
     inCounter(){
         if(this.elem){
@@ -353,7 +472,7 @@ class Progress extends CreateSvg {
                 this.elem[i].append(svg);
             }
         }
-    }
+    };
 
     inCount(count){
         if(this.elem){
@@ -369,5 +488,5 @@ class Progress extends CreateSvg {
                 this.elem[i].append(svg);
             }
         }
-    }
+    };
 }
