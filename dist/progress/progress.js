@@ -184,7 +184,7 @@ class Animation extends SetOptions {
         };
 
         animated();
-    }
+    };
 
     /**
      * @param start
@@ -198,7 +198,7 @@ class Animation extends SetOptions {
         let counter = start;
         let interval = Math.abs(count - start);
 
-        let animated = ()=>{
+        const animated = ()=>{
             let step = (interval / duration) * this.state.time;
             counter -= step;
             if(counter <= count){
@@ -210,7 +210,7 @@ class Animation extends SetOptions {
         };
 
         animated();
-    }
+    };
 }
 
 class CreateSvg extends Animation {
