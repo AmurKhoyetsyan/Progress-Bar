@@ -65,6 +65,7 @@ class GetterSetterParameters {
     };
 
     /**
+     * Replace Char or Text in String
      * @param count
      * @param search
      * @param replace
@@ -74,6 +75,47 @@ class GetterSetterParameters {
     replaceAll(count, search, replace){
         return count.split(search).join(replace);
     };
+
+    /**
+     * Getter Coefficient for Stroke
+     * @param parent
+     * @param child
+     * @returns {{parent: number, child: number}}
+     * @private
+     */
+
+    getCoefficient(parent, child){
+        if(parent > child){
+            if(parent / 2 > child){
+                return {
+                    parent: 0,
+                    child: (parent / 2) - child
+                };
+            }else{
+                return {
+                    parent: 0,
+                    child: 0
+                };
+            }
+        }else if(parent < child){
+            if(child / 2 > parent){
+                return {
+                    parent: (child / 2) - parent,
+                    child: 0
+                };
+            }else{
+                return {
+                    parent: 0,
+                    child: 0
+                };
+            }
+        }else {
+            return {
+                parent: 0,
+                child: 0
+            };
+        }
+    }
 }
 
 class SetOptions {
@@ -291,13 +333,15 @@ class CreateSvg extends Animation {
      * @param stroke
      * @param strokeWidth
      * @param width
+     * @param coefficient
+     * @param bigStroke
      * @returns {Element}
      * @private
      */
 
-    _setTriangle(fill, stroke, strokeWidth, width){
+    _setTriangle(fill, stroke, strokeWidth, width, coefficient, bigStroke){
         let path = document.createElementNS('http://www.w3.org/2000/svg', 'path'); // create path
-        path.setAttribute('d', `M ${width / 2}, ${0 + strokeWidth} L ${width - strokeWidth}, ${width - strokeWidth} L ${0 + strokeWidth}, ${width - strokeWidth} L ${width / 2}, ${0 + strokeWidth} Z`);
+        path.setAttribute('d', `M ${width / 2}, ${bigStroke - (coefficient / 2)} L ${width - (bigStroke - (coefficient / 2))}, ${width - (bigStroke - (coefficient / 2))} L ${bigStroke - (coefficient / 2)}, ${width - (bigStroke - (coefficient / 2))} L ${width / 2}, ${bigStroke - (coefficient / 2)} Z`);
         path.setAttribute('fill', fill);
         path.setAttribute('stroke', stroke);
         path.setAttribute('stroke-width', strokeWidth);
@@ -310,13 +354,15 @@ class CreateSvg extends Animation {
      * @param stroke
      * @param strokeWidth
      * @param width
+     * @param coefficient
+     * @param bigStroke
      * @returns {Element}
      * @private
      */
 
-    _setCubic(fill, stroke, strokeWidth, width){
+    _setCubic(fill, stroke, strokeWidth, width, coefficient, bigStroke){
         let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', `M ${0 + strokeWidth}, ${0 + strokeWidth} L ${width - strokeWidth}, ${0 + strokeWidth} L ${width - strokeWidth}, ${width - strokeWidth} L ${0 + strokeWidth}, ${width - strokeWidth} L ${0 + strokeWidth}, ${0 + strokeWidth} Z`);
+        path.setAttribute('d', `M ${bigStroke - (coefficient / 2)}, ${bigStroke - (coefficient / 2)} L ${width - (bigStroke - (coefficient / 2))}, ${bigStroke - (coefficient / 2)} L ${width - (bigStroke - (coefficient / 2))}, ${width - (bigStroke - (coefficient / 2))} L ${bigStroke - (coefficient / 2)}, ${width - (bigStroke - (coefficient / 2))} L ${bigStroke - (coefficient / 2)}, ${bigStroke - (coefficient / 2)} Z`);
         path.setAttribute('fill', fill);
         path.setAttribute('stroke', stroke);
         path.setAttribute('stroke-width', strokeWidth);
@@ -343,9 +389,12 @@ class CreateSvg extends Animation {
             progressParent,
             progressChild;
 
+        let coefficient = new GetterSetterParameters().getCoefficient(option.strokeWidthParent, option.strokeWidthChild);
+        let bigStroke = Math.max(option.strokeWidthParent, option.strokeWidthChild);
+
         svg.setAttribute('height', setGet.Width);
         svg.setAttribute('width', setGet.Width);
-        svg.setAttribute('viewBox', '0 0 ' + setGet.Width + ' ' + setGet.Width);
+        svg.setAttribute('viewBox', `0 0 ${setGet.Width} ${setGet.Width}`);
 
         switch(option.type){
             case 'circle':
@@ -370,12 +419,13 @@ class CreateSvg extends Animation {
                 break;
             case 'triangle':
                 width = setGet.Width;
-                let a = Math.sqrt(Math.pow(width, 2) + Math.pow(width / 2, 2));
-                let triangleWidth = a + a + width;
+                let side = width - (2 * (bigStroke - (coefficient.child / 2)));
+                let a = Math.sqrt(Math.pow(side, 2) + Math.pow(side / 2, 2));
+                let triangleWidth = a + a + side;
                 per = (triangleWidth * percent) / 100;
 
-                progressParent = this._setTriangle(option.fillParent, option.progressParentColor, option.strokeWidthParent, width);
-                progressChild = this._setTriangle(option.fillChild, option.progressColor, option.strokeWidthChild, width);
+                progressParent = this._setTriangle(option.fillParent, option.progressParentColor, option.strokeWidthParent, width, coefficient.parent, bigStroke);
+                progressChild = this._setTriangle(option.fillChild, option.progressColor, option.strokeWidthChild, width, coefficient.child, bigStroke);
 
                 progressChild.setAttribute('stroke-dasharray', `${triangleWidth} , ${triangleWidth}`);
 
@@ -388,11 +438,11 @@ class CreateSvg extends Animation {
                 break;
             case 'cubic':
                 width = setGet.Width;
-                let cubicWidth = 4 * (width - option.strokeWidthChild);
+                let cubicWidth = 4 * (width - (2 * (bigStroke - (coefficient.child / 2))));
                 per = (cubicWidth * percent) / 100;
 
-                progressParent = this._setCubic(option.fillParent, option.progressParentColor, option.strokeWidthParent, width);
-                progressChild = this._setCubic(option.fillChild, option.progressColor, option.strokeWidthChild, width);
+                progressParent = this._setCubic(option.fillParent, option.progressParentColor, option.strokeWidthParent, width, coefficient.parent, bigStroke);
+                progressChild = this._setCubic(option.fillChild, option.progressColor, option.strokeWidthChild, width, coefficient.child, bigStroke);
 
                 progressChild.setAttribute('stroke-dasharray', `${cubicWidth} , ${cubicWidth}`);
 
@@ -473,6 +523,10 @@ class Progress extends CreateSvg {
             }
         }
     };
+
+    /**
+     * @param count
+     */
 
     inCount(count){
         if(this.elem){

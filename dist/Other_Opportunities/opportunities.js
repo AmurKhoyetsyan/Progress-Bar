@@ -17,7 +17,6 @@ class GetterSetterParameters {
      * @returns {Number}
      * @constructor
      */
-
     get Height(){
         if(this.elem){
             return parseFloat(this.elem.clientHeight);
@@ -66,6 +65,7 @@ class GetterSetterParameters {
     };
 
     /**
+     * Replace Char or Text in String
      * @param count
      * @param search
      * @param replace
@@ -75,4 +75,45 @@ class GetterSetterParameters {
     replaceAll(count, search, replace){
         return count.split(search).join(replace);
     };
+
+    /**
+     * Getter Coefficient for Stroke
+     * @param parent
+     * @param child
+     * @returns {{parent: number, child: number}}
+     * @private
+     */
+
+    getCoefficient(parent, child){
+        if(parent > child){
+            if(parent / 2 > child){
+                return {
+                    parent: 0,
+                    child: (parent / 2) - child
+                };
+            }else{
+                return {
+                    parent: 0,
+                    child: 0
+                };
+            }
+        }else if(parent < child){
+            if(child / 2 > parent){
+                return {
+                    parent: (child / 2) - parent,
+                    child: 0
+                };
+            }else{
+                return {
+                    parent: 0,
+                    child: 0
+                };
+            }
+        }else {
+            return {
+                parent: 0,
+                child: 0
+            };
+        }
+    }
 }
