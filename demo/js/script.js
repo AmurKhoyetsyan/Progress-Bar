@@ -10,7 +10,7 @@ let options = {
     text: true,
     fontColor: '#FFFFFF',
     fontSize: 18,
-    fontWeight: 3000,
+    fontWeight: 900,
     fillParent: '#6949D7',
     fillChild: 'transparent',
     interval: 1000,
