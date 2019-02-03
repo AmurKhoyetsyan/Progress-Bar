@@ -5,11 +5,12 @@ let Circle2 = document.getElementsByClassName('circle-2');
 let Circle3 = document.getElementsByClassName('circle-3');
 
 let options = {
+    animationType: 'linear',
     type: 'circle',
     text: true,
     fontColor: '#FFFFFF',
     fontSize: 18,
-    fontWeight: 900,
+    fontWeight: 3000,
     fillParent: '#6949D7',
     fillChild: 'transparent',
     interval: 1000,
@@ -28,6 +29,7 @@ new Progress(Circle3, options).inCounter();
 let triangle = document.getElementsByClassName('triangle');
 
 let options1 = {
+    animationType: 'linear',
     type: 'triangle',
     text: true,
     fontColor: '#FFFFFF',
@@ -48,6 +50,7 @@ new Progress(triangle, options1).inPercent();
 let cubic = document.getElementsByClassName('cubic-1');
 
 let options2 = {
+    animationType: 'linear',
     type: 'cubic',
     text: true,
     fontColor: '#FFFFFF',

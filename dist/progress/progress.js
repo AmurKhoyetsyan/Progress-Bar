@@ -115,7 +115,129 @@ class GetterSetterParameters {
                 child: 0
             };
         }
-    }
+    };
+
+    /**
+     * Getter type Browser
+     */
+
+    getBrowser(){
+        return (function(agent){
+            switch(true){
+                case agent.indexOf("edge") > -1: return "edge";
+                case agent.indexOf("opr") > -1 && !!window.opr: return "opera";
+                case agent.indexOf("chrome") > -1 && !!window.chrome: return "chrome";
+                case agent.indexOf("trident") > -1: return "ie";
+                case agent.indexOf("firefox") > -1: return "firefox";
+                case agent.indexOf("safari") > -1: return "safari";
+                default: return "other";
+            }
+        })(window.navigator.userAgent.toLowerCase());
+    };
+}
+
+class AnimateType{
+
+    /**
+     * @param figure
+     * @param duration
+     * @param counter
+     * @param count
+     * @param step
+     * @constructor
+     */
+
+    EaseOut(figure, duration, counter, count, step){
+
+        /**
+         * @param timing
+         * @returns {Function}
+         */
+
+        function makeEaseOut(timing) {
+            return function(timeFraction) {
+                return 1 - timing(1 - timeFraction);
+            }
+        }
+
+        /**
+         * @param timeFraction
+         * @returns {number}
+         */
+
+        function bounce(timeFraction) {
+            for (let a = 0, b = 1, result; 1; a += b, b /= 2) {
+                if (timeFraction >= (7 - 4 * a) / 11) {
+                    return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
+                }
+            }
+        }
+
+        let bounceEaseOut = makeEaseOut(bounce);
+
+        /**
+         * @param timing
+         * @param draw
+         * @param duration
+         */
+
+        function animate({timing, draw, duration}) {
+
+            let start = performance.now();
+
+            requestAnimationFrame(function animate(time) {
+                // timeFraction goes from 0 to 1
+                let timeFraction = (time - start) / duration;
+                if (timeFraction > 1) timeFraction = 1;
+
+                // calculate the current animation state
+                let progress = timing(timeFraction);
+
+                draw(progress); // draw it
+
+                if (timeFraction < 1) {
+                    requestAnimationFrame(animate);
+                }
+
+            });
+        }
+
+        animate({
+            duration: duration,
+            timing: bounceEaseOut,
+            draw: function(progress) {
+                if(counter <= count){
+                    figure.setAttribute('stroke-dashoffset', progress * count);
+                }else{
+                    figure.setAttribute('stroke-dashoffset', counter);
+                    counter -= step;
+                }
+            }
+        });
+    };
+
+    /**
+     * @param figure
+     * @param duration
+     * @param counter
+     * @param count
+     * @param step
+     * @constructor
+     */
+
+    Linear(figure, duration, counter, count, step){
+        const animated = ()=>{
+            counter -= step;
+            if(counter <= count){
+                figure.setAttribute('stroke-dashoffset', count);
+            }else{
+                figure.setAttribute('stroke-dashoffset', counter);
+                setTimeout(animated, duration);
+            }
+        };
+
+        animated();
+    };
 }
 
 class SetOptions {
@@ -209,23 +331,16 @@ class Animation extends SetOptions {
      * @private
      */
 
-    _animatedCircle(start, count, duration, circle){
+    _animatedCircle(start, count, duration, circle, typeAnimation){
         let counter = start;
         let interval = Math.abs(count - start);
         let step = (interval / duration) * this.state.time;
         circle.setAttribute('stroke-dashoffset', counter);
 
-        const animated = ()=>{
-            counter -= step;
-            if(counter <= count){
-                circle.setAttribute('stroke-dashoffset', count);
-            }else{
-                circle.setAttribute('stroke-dashoffset', counter);
-                setTimeout(animated, this.state.time);
-            }
-        };
-
-        animated();
+        switch(typeAnimation){
+            case 'linear': new AnimateType().Linear(circle, this.state.time, counter, count, step); break;
+            case 'easeOut':  new AnimateType().EaseOut(circle, duration, counter, count, step); break;
+        }
     };
 
     /**
@@ -236,22 +351,15 @@ class Animation extends SetOptions {
      * @private
      */
 
-    _animateTriangleAndCubic(start, count, duration, path){
+    _animateTriangleAndCubic(start, count, duration, path, typeAnimation){
         let counter = start;
         let interval = Math.abs(count - start);
+        let step = (interval / duration) * this.state.time;
 
-        const animated = ()=>{
-            let step = (interval / duration) * this.state.time;
-            counter -= step;
-            if(counter <= count){
-                path.setAttribute('stroke-dashoffset', count);
-            }else{
-                path.setAttribute('stroke-dashoffset', counter);
-                setTimeout(animated, this.state.time);
-            }
-        };
-
-        animated();
+        switch(typeAnimation){
+            case 'linear': new AnimateType().Linear(path, this.state.time, counter, count, step); break;
+            case 'easeOut':  new AnimateType().EaseOut(path, duration, counter, count, step); break;
+        }
     };
 }
 
@@ -411,7 +519,7 @@ class CreateSvg extends Animation {
                 progressChild.setAttribute('stroke-dasharray', circleWidth);
 
                 if(option.animated){
-                    this._animatedCircle(circleWidth, circlePercent, option.interval, progressChild);
+                    this._animatedCircle(circleWidth, circlePercent, option.interval, progressChild, option.animationType);
                 }else{
                     progressChild.setAttribute('stroke-dashoffset', circlePercent);
                 }
@@ -430,7 +538,7 @@ class CreateSvg extends Animation {
                 progressChild.setAttribute('stroke-dasharray', `${triangleWidth} , ${triangleWidth}`);
 
                 if(option.animated){
-                    this._animateTriangleAndCubic(triangleWidth, per, option.interval, progressChild);
+                    this._animateTriangleAndCubic(triangleWidth, per, option.interval, progressChild, option.animationType);
                 }else{
                     progressChild.setAttribute('stroke-dashoffset', per);
                 }
@@ -447,7 +555,7 @@ class CreateSvg extends Animation {
                 progressChild.setAttribute('stroke-dasharray', `${cubicWidth} , ${cubicWidth}`);
 
                 if(option.animated){
-                    this._animateTriangleAndCubic(cubicWidth, per, option.interval, progressChild);
+                    this._animateTriangleAndCubic(cubicWidth, per, option.interval, progressChild, option.animationType);
                 }else{
                     progressChild.setAttribute('stroke-dashoffset', per);
                 }
@@ -476,6 +584,7 @@ class Progress extends CreateSvg {
         this.elem = elem;
         this.options = options;
         this.defaultOptions = {
+            animationType: 'linear',
             type: 'circle',
             text: true,
             fontColor: '#000000',
