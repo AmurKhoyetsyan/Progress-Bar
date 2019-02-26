@@ -11,3 +11,4 @@
 | Cubic               | [Create Progress Bar With Cubic In JavaScript](documentation/progressbarcubic.md)            |
 | Opportunities       | [Other Opportunities In JavaScript](documentation/otheropportunities.md)                     |
 | SVG Circle And Path | [Create SVG Circle With Circle Or With Path And Triangle With Path](documentation/circle.md) |
+| LICENSE             | [LICENSE](LICENSE) |
